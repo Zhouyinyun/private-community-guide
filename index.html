@@ -450,11 +450,17 @@
         
         <div class="highlight-banner">
             特别提醒：直播间、渠道可以<span class="free-tag">免费加入</span>，无需任何费用！
-            <div class="contact-info">
-                <span class="contact-label">联系人：</span>
-                <span class="contact-value">骆姐</span>
-                <span class="contact-label">微信号：</span>
-                <span class="contact-value">iamxiaoluo</span>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 10px;">
+                <div class="contact-info">
+                    <span class="contact-label">联系人：</span>
+                    <span class="contact-value">骆姐</span>
+                    <span class="contact-label">微信号：</span>
+                    <span class="contact-value">Iamxiaoluo2</span>
+                </div>
+                <div class="qrcode-container" style="max-width: 120px;">
+                    <img src="WechatIMG336.jpg" alt="骆姐微信二维码" style="width: 100%; height: auto; border-radius: 5px;" onclick="showFullscreen(this)">
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8); margin-top: 5px;">扫码添加微信</div>
+                </div>
             </div>
         </div>
         
@@ -480,8 +486,9 @@
             </ol>
             <div class="image-container">
                 <div class="zoom-hint">点击查看大图</div>
-                <img src="./WechatIMG3964.jpg" alt="扫码加入私域圈子" id="qrcode-image" onclick="showFullscreen(this)">
+                <img src="WechatIMG3964.jpg" alt="扫码加入私域圈子" id="qrcode-image" onclick="showFullscreen(this)">
                 <div class="image-caption">扫描上方二维码加入私域圈子</div>
+                <div class="img-error" id="qrcode-error" style="display: none;">图片加载失败</div>
             </div>
             <div class="tip">
                 <strong>提示：</strong>请确保您的微信版本为最新版本，以避免扫码过程中出现问题。
@@ -502,8 +509,9 @@
             </ol>
             <div class="image-container">
                 <div class="zoom-hint">点击查看大图</div>
-                <img src="./WechatIMG3970.jpg" alt="点击发布动态" id="publish-image" onclick="showFullscreen(this)">
+                <img src="WechatIMG3970.jpg" alt="点击发布动态" id="publish-image" onclick="showFullscreen(this)">
                 <div class="image-caption">点击下方"发布动态"按钮发布内容</div>
+                <div class="img-error" id="publish-error" style="display: none;">图片加载失败</div>
             </div>
             <div class="tip">
                 <strong>提示：</strong>首次发布内容时，请遵循社区规则，保持内容的友善和相关性。
@@ -528,8 +536,9 @@
             </ol>
             <div class="image-container">
                 <div class="zoom-hint">点击查看大图</div>
-                <img src="./WechatIMG3969.jpg" alt="添加标签" id="tag-image" onclick="showFullscreen(this)">
+                <img src="WechatIMG3969.jpg" alt="添加标签" id="tag-image" onclick="showFullscreen(this)">
                 <div class="image-caption">选择适合您需求的标签</div>
+                <div class="img-error" id="tag-error" style="display: none;">图片加载失败</div>
             </div>
             <div class="tip">
                 <strong>提示：</strong>添加准确的标签可以帮助您的需求被相关人员更快地看到并得到回应。
@@ -562,17 +571,54 @@
             </div>
             <div class="faq-item">
                 <div class="faq-question">Q: 如何联系管理员咨询加入问题？</div>
-                <div class="faq-answer">A: 请添加骆姐微信：iamxiaoluo，备注"私域圈子咨询"，她将为您提供帮助。</div>
+                <div class="faq-answer">A: 请添加骆姐微信：Iamxiaoluo2，备注"私域圈子咨询"，她将为您提供帮助。</div>
             </div>
         </div>
         
         <footer>
-            希望本指南能帮助您顺利加入私域圈子并发布您的需求。如有更多问题，请联系骆姐（微信号：iamxiaoluo）。
+            希望本指南能帮助您顺利加入私域圈子并发布您的需求。如有更多问题，请联系骆姐（微信号：Iamxiaoluo2）。
             <p>祝您使用愉快！</p>
         </footer>
     </div>
 
     <script>
+        // 图片加载失败处理函数
+        function handleImageError(imgElement, errorElement, alternateImages) {
+            let currentIndex = 0;
+            
+            imgElement.onerror = function() {
+                if (currentIndex < alternateImages.length) {
+                    imgElement.src = alternateImages[currentIndex];
+                    currentIndex++;
+                } else {
+                    errorElement.style.display = 'block';
+                    imgElement.style.display = 'none';
+                }
+            };
+        }
+
+        const qrcodeImage = document.getElementById('qrcode-image');
+        const qrcodeError = document.getElementById('qrcode-error');
+        handleImageError(qrcodeImage, qrcodeError, [
+            'WechatIMG3967.jpg',
+            'WechatIMG3968.jpg',
+            'WechatIMG3964.jpg'
+        ]);
+
+        const publishImage = document.getElementById('publish-image');
+        const publishError = document.getElementById('publish-error');
+        handleImageError(publishImage, publishError, [
+            'WechatIMG3970.jpg',
+            'WechatIMG3968.jpg'
+        ]);
+
+        const tagImage = document.getElementById('tag-image');
+        const tagError = document.getElementById('tag-error');
+        handleImageError(tagImage, tagError, [
+            'WechatIMG3969.jpg',
+            'WechatIMG3964.jpg'
+        ]);
+
         // 图片放大查看功能
         function showFullscreen(img) {
             const fullscreenView = document.getElementById('fullscreen-view');
